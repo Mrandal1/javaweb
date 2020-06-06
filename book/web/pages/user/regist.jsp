@@ -1,11 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>会员注册页面</title>
-    <base href="http://localhost:8080/book/">
-    <link type="text/css" rel="stylesheet" href="static/css/style.css">
-    <script src="static/scripts/jquery-3.4.1.js"></script>
+    <%--    静态包含--%>
+    <%@include file="/pages/common/head.jsp" %>
     <style type="text/css">
         .login_form {
             height: 420px;
@@ -29,7 +29,7 @@
                 //用户名  字母数字下划线，5-12位 ,字母或数字开头
                 let usernamePattern = /^[a-zA-Z|0-9]\w{4,11}$/;
                 //密码	字母数字下划线，5-12位 ,字母或数字开头
-                let passwordPattern = /^[a-zA-Z]\w{5,17}$/;
+                let passwordPattern = /^[a-zA-Z]\w{4,17}$/;
                 //邮箱
                 let emailPattern = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
                 //验证用户名
@@ -81,13 +81,18 @@
             <div class="login_box">
                 <div class="tit">
                     <h1>注册会员</h1>
-                    <span class="errorMsg"></span>
+                    <span class="errorMsg">
+                        ${empty requestScope.msg?" 请输入用户名和密码":requestScope.msg}
+                    </span>
                 </div>
                 <div class="form">
-                    <form action="registerServlet" method="post">
+                    <form action="userServlet" method="post">
+                        <input type="hidden" name="action" value="regist">
                         <label>用户名称：</label>
                         <input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1"
-                               name="username" id="username"/>
+                               name="username" id="username"
+                               value="${requestScope.username}"
+                        />
                         <br/>
                         <br/>
                         <label>用户密码：</label>
@@ -102,7 +107,9 @@
                         <br/>
                         <label>电子邮件：</label>
                         <input class="itxt" type="text" placeholder="请输入邮箱地址" autocomplete="off" tabindex="1"
-                               name="email" id="email"/>
+                               name="email" id="email"
+                               value="${requestScope.email}"
+                        />
                         <br/>
                         <br/>
                         <label>验证码：</label>
@@ -119,10 +126,6 @@
         </div>
     </div>
 </div>
-<div id="bottom">
-			<span>
-				Copyright &copy;2015
-			</span>
-</div>
+<%@include file="/pages/common/footer.jsp" %>
 </body>
 </html>
