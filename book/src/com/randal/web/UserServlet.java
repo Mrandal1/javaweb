@@ -3,6 +3,7 @@ package com.randal.web;
 import com.randal.pojo.User;
 import com.randal.service.UserService;
 import com.randal.service.impl.UserServiceImpl;
+import com.randal.utils.MyFactory;
 import com.randal.utils.WebUtils;
 
 import javax.servlet.ServletException;
@@ -18,7 +19,6 @@ import java.io.IOException;
  */
 public class UserServlet extends BaseServlet {
     private UserService userService = new UserServiceImpl();
-
     /**
      * 登录模块
      *
