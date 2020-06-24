@@ -36,9 +36,9 @@ public class UserServlet extends BaseServlet {
             req.setAttribute("msg", "用户名或密码错误");
             req.setAttribute("username", user.getUsername());
 
-            req.getRequestDispatcher("pages/user/login.jsp").forward(req, resp);
+            req.getRequestDispatcher("/pages/user/login.jsp").forward(req, resp);
         } else {
-            req.getRequestDispatcher("pages/user/login_success.jsp").forward(req, resp);
+            req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req, resp);
 
         }
 

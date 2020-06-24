@@ -14,7 +14,7 @@ import java.util.List;
 public class BookDaoImpl extends BaseDao implements BookDao {
     @Override
     public int addBook(Book book) {
-        String sql = "insert into t_book(`id`,`name`,`author`,`price`,`sales`,`stock`,`img_path`) values( ? , ? , ? , ? , ? , ? )";
+        String sql = "insert into t_book(`name`,`author`,`price`,`sales`,`stock`,`img_path`) values( ? , ? , ? , ? , ? , ? )";
         return update(sql, book.getName(), book.getAuthor(), book.getPrice(), book.getSales(), book.getStock(), book.getImgPath());
     }
 

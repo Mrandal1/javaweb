@@ -7,8 +7,16 @@
     <title>图书管理</title>
     <%--    静态包含--%>
     <%@include file="/pages/common/head.jsp" %>
-
+    <script type="text/javascript">
+        $(function () {
+            // 删除提示
+            $("a.deleteClass").click(function () {
+                return  confirm("确定删除"+$(this).parent().parent().find("td:first").text()+"？");
+            });
+        })
+    </script>
 </head>
+
 <body>
 
 <%@include file="/pages/common/manager_menu.jsp" %>
@@ -24,14 +32,15 @@
             <td colspan="2">操作</td>
         </tr>
         <c:forEach items="${requestScope.book_list}" var="book">
+
             <tr>
                 <td>${book.name}</td>
                 <td>${book.price}</td>
                 <td>${book.author}</td>
                 <td>${book.sales}</td>
                 <td>${book.stock}</td>
-                <td><a href="book_edit.jsp">修改</a></td>
-                <td><a href="#">删除</a></td>
+                <td><a href="manager/bookServlet?action=getBook&id=${book.id}">修改</a></td>
+                <td><a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}">删除</a></td>
             </tr>
         </c:forEach>
 
@@ -43,7 +52,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><a href="book_edit.jsp">添加图书</a></td>
+            <td><a href="pages/manager/book_edit.jsp">添加图书</a></td>
         </tr>
     </table>
 </div>
