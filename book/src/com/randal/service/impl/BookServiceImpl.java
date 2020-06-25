@@ -3,6 +3,7 @@ package com.randal.service.impl;
 import com.randal.dao.BookDao;
 import com.randal.dao.impl.BookDaoImpl;
 import com.randal.pojo.Book;
+import com.randal.pojo.Page;
 import com.randal.service.BookService;
 
 import java.util.List;
@@ -33,11 +34,31 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book queryBookById(Integer id) {
-       return bookDao.queryBookById(id);
+        return bookDao.queryBookById(id);
     }
 
     @Override
     public List<Book> queryBooksAll() {
-      return   bookDao.queryBookAll();
+        return bookDao.queryBookAll();
+    }
+
+    @Override
+    public Page<Book> page(int pageNo, int pageSize) {
+        Page<Book> page = new Page<>();
+        page.setPageSize(pageSize);
+        Integer pageTotalCount = bookDao.queryForPageTotalCount();
+        page.setPageTotalCount(pageTotalCount);
+        Integer pageTotal = pageTotalCount / pageSize;
+        if (pageTotalCount % pageSize > 0) {
+            pageTotal += 1;
+        }
+        // 服务器端校验
+        page.setPageTotal(pageTotal);
+
+        page.setPageNo(pageNo);
+        int begin = (page.getPageNo()-1)*pageSize;
+        List<Book> items = bookDao.queryForPageItems(begin, pageSize);
+        page.setItems(items);
+        return page;
     }
 }

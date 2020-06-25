@@ -1,5 +1,6 @@
 package com.randal.test;
 
+import com.randal.pojo.Page;
 import com.randal.service.BookService;
 import com.randal.service.impl.BookServiceImpl;
 import org.junit.Test;
@@ -36,5 +37,9 @@ public class BookServiceTest {
     @Test
     public void queryBooksAll() {
         System.out.println(bookService.queryBooksAll());
+    }
+    @Test
+    public void page(){
+        System.out.println(bookService.page(1, 4));
     }
 }

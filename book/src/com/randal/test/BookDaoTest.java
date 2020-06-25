@@ -47,4 +47,15 @@ private BookDao bookDao=new BookDaoImpl();
             System.out.println(b);
         }
     }
+    @Test
+    public void queryForPageTotalCount(){
+        System.out.println(bookDao.queryForPageTotalCount());
+    }
+    @Test
+    public void queryForPageItems(){
+        List<Book> items=bookDao.queryForPageItems(88,4);
+        for (Book b:items) {
+            System.out.println(b);
+        }
+    }
 }

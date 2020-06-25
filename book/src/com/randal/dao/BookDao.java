@@ -29,6 +29,7 @@ public interface BookDao {
 
     /**
      * 更新图书信息
+     *
      * @param book 更新目标图书
      * @return 成功跟新的图书数量 （1）
      */
@@ -36,6 +37,7 @@ public interface BookDao {
 
     /**
      * 根据图书id查询图书信息
+     *
      * @param id 图书id
      * @return 查询到的Book实体对象
      */
@@ -43,7 +45,23 @@ public interface BookDao {
 
     /**
      * 查询所有图书信息
+     *
      * @return 封装所有Book信息实体的List
      */
     List<Book> queryBookAll();
+
+    /**
+     * 查询总记录数
+     *
+     * @return
+     */
+    Integer queryForPageTotalCount();
+
+    /**
+     * 查询当前页记录
+     * @param begin 开始记录
+     * @param pageSize 页面容量
+     * @return
+     */
+    List<Book> queryForPageItems(int begin, int pageSize);
 }

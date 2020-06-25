@@ -15,6 +15,7 @@
             request.getServerPort()+
             request.getContextPath()+
             "/";
+    pageContext.setAttribute("basePath",ServerPath);
 %>
 
 <base href=<%=ServerPath%>>

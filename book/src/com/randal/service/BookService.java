@@ -1,6 +1,7 @@
 package com.randal.service;
 
 import com.randal.pojo.Book;
+import com.randal.pojo.Page;
 
 import java.util.List;
 
@@ -46,4 +47,12 @@ public interface BookService {
      * @return List<Book>
      */
     List<Book> queryBooksAll();
+
+    /**
+     * 页面
+     * @param pageNo pageNo
+     * @param pageSize pageSize
+     * @return Page<Book>
+     */
+    Page<Book> page(int pageNo,int pageSize);
 }
