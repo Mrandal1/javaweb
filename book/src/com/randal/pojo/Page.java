@@ -38,18 +38,24 @@ public class Page<T> {
      * 当前显示记录
      */
     private List<T> items;
+    /**
+     * 请求地址抽取
+     */
+    private String url;
+    /**
+     * 价格区间最小价格
+     */
+    private Integer min;
+    /**
+     * 价格区间最大价格
+     */
+    private Integer max;
 
     public Integer getPageNo() {
         return pageNo;
     }
 
     public void setPageNo(Integer pageNo) {
-        if (pageNo<1){
-            pageNo=1;
-        }
-        if (pageNo>pageTotal){
-            pageNo=pageTotal;
-        }
         this.pageNo = pageNo;
     }
 
@@ -85,6 +91,30 @@ public class Page<T> {
         this.items = items;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getMin() {
+        return min;
+    }
+
+    public void setMin(Integer min) {
+        this.min = min;
+    }
+
+    public Integer getMax() {
+        return max;
+    }
+
+    public void setMax(Integer max) {
+        this.max = max;
+    }
+
     @Override
     public String toString() {
         return "Page{" +
@@ -93,6 +123,9 @@ public class Page<T> {
                 ", pageSize=" + pageSize +
                 ", pageTotalCount=" + pageTotalCount +
                 ", items=" + items +
+                ", url='" + url + '\'' +
+                ", min=" + min +
+                ", max=" + max +
                 '}';
     }
 }

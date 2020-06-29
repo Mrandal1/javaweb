@@ -64,4 +64,22 @@ public interface BookDao {
      * @return
      */
     List<Book> queryForPageItems(int begin, int pageSize);
+
+    /**
+     * 根据价格区间查询查询总记录数
+     * @param min
+     * @param max
+     * @return
+     */
+    Integer queryForPageTotalCountByPrice(int min, int max);
+
+    /**
+     * 根据价格区间查询当前页记录
+     * @param begin
+     * @param pageSize
+     * @param min
+     * @param max
+     * @return
+     */
+    List<Book> queryForPageItemsByPrice(int begin, int pageSize, int min, int max);
 }

@@ -35,7 +35,7 @@ public class BookServlet extends BaseServlet {
         Book book = WebUtils.copyParamToBean(req.getParameterMap(), new Book());
         bookService.addBook(book);
         // 使用重定向防止表单重复提交
-        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=page");
     }
 
     /**
@@ -49,7 +49,7 @@ public class BookServlet extends BaseServlet {
     protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Book book = WebUtils.copyParamToBean(req.getParameterMap(), new Book());
         bookService.deleteBookById(book.getId());
-        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=page&pageNo="+req.getParameter("pageNo"));
     }
 
     /**
@@ -63,7 +63,7 @@ public class BookServlet extends BaseServlet {
     protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Book book = WebUtils.copyParamToBean(req.getParameterMap(), new Book());
         bookService.updateBook(book);
-        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=list");
+        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=page&pageNo="+req.getParameter("pageNo"));
     }
 
     /**
@@ -110,6 +110,7 @@ public class BookServlet extends BaseServlet {
         int pageSize = pageBean.getPageSize()!=null?pageBean.getPageSize():DEFAULT_PAGE_SIZE;
         // 取得page对象
         Page<Book> page=bookService.page(pageNo,pageSize);
+        page.setUrl("manager/bookServlet?action=page");
         // 保存至域中
         req.setAttribute("page",page);
         req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);

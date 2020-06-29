@@ -19,6 +19,7 @@ import java.io.IOException;
  */
 public class UserServlet extends BaseServlet {
     private UserService userService = new UserServiceImpl();
+
     /**
      * 登录模块
      *
@@ -28,8 +29,6 @@ public class UserServlet extends BaseServlet {
      * @throws IOException      IOException
      */
     protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //String username = req.getParameter("username");
-        //String password = req.getParameter("password");
         User user = WebUtils.copyParamToBean(req.getParameterMap(), new User());
         if (userService.login(user) == null) {
             //回显错误信息
@@ -38,6 +37,7 @@ public class UserServlet extends BaseServlet {
 
             req.getRequestDispatcher("/pages/user/login.jsp").forward(req, resp);
         } else {
+            req.getSession().setAttribute("user", userService.login(user));
             req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req, resp);
 
         }
@@ -53,14 +53,13 @@ public class UserServlet extends BaseServlet {
      * @throws IOException      IOException
      */
     protected void regist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //String username = req.getParameter("username");
-        //String password = req.getParameter("password");
-        //String email = req.getParameter("email");
         String code = req.getParameter("code");
         //判断验证码
-        String myCode = "abcde";
+        String myCode = (String) req.getSession().getAttribute("KAPTCHA_SESSION_KEY");
+        // 防止重复提交
+        req.getSession().removeAttribute("KAPTCHA_SESSION_KEY");
         User user = WebUtils.copyParamToBean(req.getParameterMap(), new User());
-        if (myCode.equalsIgnoreCase(code)) {
+        if (myCode != null && myCode.equalsIgnoreCase(code)) {
             if (userService.isExistUsername(user.getUsername())) {
                 System.out.println("用户名[" + user.getUsername() + "]已存在");
                 //回显错误信息
@@ -82,6 +81,21 @@ public class UserServlet extends BaseServlet {
             req.setAttribute("email", user.getEmail());
             req.getRequestDispatcher("/pages/user/regist.jsp").forward(req, resp);
         }
+    }
+
+    /**
+     * 注销
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //销毁session
+        req.getSession().invalidate();
+        //
+        resp.sendRedirect(req.getContextPath());
     }
 
     @Override

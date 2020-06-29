@@ -58,4 +58,11 @@ private BookDao bookDao=new BookDaoImpl();
             System.out.println(b);
         }
     }
+    @Test
+    public void queryForPageItemsByPrice(){
+        List<Book> items=bookDao.queryForPageItemsByPrice(0,4,0,50);
+        for (Book b:items) {
+            System.out.println(b);
+        }
+    }
 }

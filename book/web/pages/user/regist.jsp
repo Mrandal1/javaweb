@@ -15,6 +15,11 @@
     </style>
     <script>
         $(function () {
+            // 验证码刷新
+            $("#code_img").click(function () {
+                // 加入参数防止调用缓存
+            this.src="${basePath}kaptcha.jpg?d"+new Date();
+            });
             //提交表单
             $("#sub_btn").click(function () {
 
@@ -114,7 +119,7 @@
                         <br/>
                         <label>验证码：</label>
                         <input class="itxt" type="text" name="code" style="width: 150px;" id="code" autocomplete="off"/>
-                        <img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
+                        <img id="code_img" alt="" src="kaptcha.jpg" style="float: right; margin-right: 40px ;width: 90px;height: 40px">
                         <br/>
                         <br/>
                         <input type="submit" value="注册" id="sub_btn"/>

@@ -37,6 +37,7 @@
                 <td colspan="2">操作</td>
             </tr>
             <tr>
+                <input type="hidden" name="pageNo" value="${param.pageNo}">
                 <input type="hidden" name="action" value="${ empty param.id ? "add":"update"}">
                 <input type="hidden" name="id" value="${requestScope.book_info.id}">
                 <td><input name="name" type="text" value="${requestScope.book_info.name}"/></td>

@@ -11,4 +11,6 @@ package com.randal.utils;
 public class Constants {
     public static final String DEFAULT_IMG_PATH = "static/img/default.jpg";
     public static final Integer DEFAULT_PAGE_SIZE = 4;
+    public static final Integer DEFAULT_PRICE_MIN=0;
+    public static final Integer DEFAULT_PRICE_MAX=Integer.MAX_VALUE;
 }
